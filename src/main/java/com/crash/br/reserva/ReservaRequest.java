@@ -1,23 +1,20 @@
-package com.crash.br.request;
+package com.crash.br.reserva;
 
-import com.crash.br.entity.Quarto;
-import com.crash.br.entity.Reserva;
+import com.crash.br.quarto.Quarto;
+import com.crash.br.reserva.Reserva;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ReservaRequest {
@@ -48,9 +45,6 @@ public class ReservaRequest {
     }
 
     public Reserva toModel(Quarto quarto) {
-        if (quarto.isReservado()) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "quarto já está reservado");
-        }
         return new Reserva(nomeDoInquilino, numeroDoQuarto, checkIn, checkOut, quarto);
     }
 
@@ -70,13 +64,4 @@ public class ReservaRequest {
         return nomeDoInquilino;
     }
 
-    @Override
-    public String toString() {
-        return "ReservaRequest{" +
-                "nomeDoInquilino='" + nomeDoInquilino + '\'' +
-                ", numeroDoQuarto=" + numeroDoQuarto +
-                ", checkIn=" + checkIn +
-                ", checkOut=" + checkOut +
-                '}';
-    }
 }

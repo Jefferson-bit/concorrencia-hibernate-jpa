@@ -1,6 +1,9 @@
-package com.crash.br.entity;
+package com.crash.br.quarto;
 
+import com.crash.br.reserva.Reserva;
 import com.crash.br.enums.TipoQuarto;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -18,13 +21,17 @@ public class Quarto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
     private String descricao;
+
     @Column(nullable = false)
     private BigDecimal valorDaDiaria;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TipoQuarto tipoQuarto;
+
     private Boolean ativo = false;
 
     @OneToMany(mappedBy = "quarto", cascade = {PERSIST, MERGE})
@@ -64,15 +71,15 @@ public class Quarto {
         return reservas;
     }
 
-    public boolean isReservado(){
-        return ativo;
+    public void verificaReserva(Boolean ativo) {
+        if (!ativo) {
+            this.ativo = true;
+        } else {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Quarto já está reservado");
+        }
     }
 
-    public void reservar() {
-        this.ativo = true;
-    }
-
-    public void adiciona(Reserva reserva) {
+    public void addReserva(Reserva reserva) {
         this.reservas.add(reserva);
     }
 }

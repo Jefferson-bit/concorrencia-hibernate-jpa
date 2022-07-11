@@ -1,4 +1,6 @@
-package com.crash.br.entity;
+package com.crash.br.reserva;
+
+import com.crash.br.quarto.Quarto;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -27,7 +29,7 @@ public class Reserva {
     @Column(nullable = false)
     private LocalDateTime instanteDaReserva = LocalDateTime.now();
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name = "quarto_id")
     private Quarto quarto;
 
@@ -41,7 +43,6 @@ public class Reserva {
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.quarto = quarto;
-        this.quarto.reservar();
     }
 
     public Long getId() {

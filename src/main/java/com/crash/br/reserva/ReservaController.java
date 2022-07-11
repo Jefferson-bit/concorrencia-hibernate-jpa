@@ -1,10 +1,7 @@
-package com.crash.br.controller;
+package com.crash.br.reserva;
 
-import com.crash.br.entity.Quarto;
-import com.crash.br.entity.Reserva;
-import com.crash.br.repository.QuartoRepository;
-import com.crash.br.repository.ReservaRepository;
-import com.crash.br.request.ReservaRequest;
+import com.crash.br.quarto.Quarto;
+import com.crash.br.quarto.QuartoRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,11 +14,9 @@ import java.net.URI;
 @RestController
 public class ReservaController {
 
-    private final ReservaRepository reservaRepository;
     private final QuartoRepository quartoRepository;
 
-    public ReservaController(ReservaRepository reservaRepository, QuartoRepository quartoRepository) {
-        this.reservaRepository = reservaRepository;
+    public ReservaController(QuartoRepository quartoRepository) {
         this.quartoRepository = quartoRepository;
     }
 
@@ -33,10 +28,9 @@ public class ReservaController {
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Quarto com id:" + "não encontrado"));
 
         Reserva reserva = request.toModel(quarto);
-        System.out.println(request.toString());
-        quarto.adiciona(reserva);
+        quarto.verificaReserva(quarto.getAtivo());
+        quarto.addReserva(reserva);
         quartoRepository.saveAndFlush(quarto);
-
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand("id", reserva.getId()).toUri();
