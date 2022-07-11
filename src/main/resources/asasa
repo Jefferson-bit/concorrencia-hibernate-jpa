@@ -1,0 +1,4 @@
+--INSERT INTO tb_quarto (descricao, valor_da_diaria, tipo_quarto, ativo) VALUES('Quarto para duas pessoas, especifico para fugir da familia', 400, 'CASAL', 0);
+--INSERT INTO tb_quarto (descricao, valor_da_diaria, tipo_quarto, ativo) VALUES('Quarto para uma pessoa com suite e direito a acesso na academia', 300, 'SOLTEIRO', 0);
+--INSERT INTO tb_quarto (descricao, valor_da_diaria, tipo_quarto, ativo) VALUES('Quarto para duas pessoas, especifico para lua de mel', 550, 'CASAL', 0);
+--INSERT INTO tb_quarto (descricao, valor_da_diaria, tipo_quarto, ativo) VALUES('Quarto para uma pessoa, com uma ducha incrível, lençois macis e suave', 250, 'SOLTEIRO', 0);
