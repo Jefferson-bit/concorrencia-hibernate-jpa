@@ -37,6 +37,9 @@ public class Quarto {
     @OneToMany(mappedBy = "quarto", cascade = {PERSIST, MERGE})
     private List<Reserva> reservas = new ArrayList<>();
 
+    @Version
+    private int versao;
+
     @Deprecated
     public Quarto() {
     }
@@ -71,12 +74,8 @@ public class Quarto {
         return reservas;
     }
 
-    public void verificaReserva(Boolean ativo) {
-        if (!ativo) {
-            this.ativo = true;
-        } else {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Quarto já está reservado");
-        }
+    public void reservar() {
+        this.ativo = true;
     }
 
     public void addReserva(Reserva reserva) {

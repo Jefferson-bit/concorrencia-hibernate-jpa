@@ -43,6 +43,7 @@ public class Reserva {
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.quarto = quarto;
+        this.quarto.reservar();
     }
 
     public Long getId() {

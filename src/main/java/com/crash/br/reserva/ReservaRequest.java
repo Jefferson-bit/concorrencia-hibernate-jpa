@@ -45,6 +45,9 @@ public class ReservaRequest {
     }
 
     public Reserva toModel(Quarto quarto) {
+        if (quarto.getAtivo()) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Quarto já está reservado");
+        }
         return new Reserva(nomeDoInquilino, numeroDoQuarto, checkIn, checkOut, quarto);
     }
 
